@@ -4,6 +4,7 @@ const cors = require('cors');
 const mysql = require('mysql2');
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcryptjs');
+require('dotenv').config();
 
 const app = express();
 app.use(cors());
@@ -12,7 +13,7 @@ app.use(bodyParser.json());
 // MySQL Connection
 const db = mysql.createConnection({
   host: 'localhost',
-  user: 'root', // your MySQL username
+  user: 'root', // your MySQL username 
   password: '', // your MySQL password
   database: 'saccos'
 });
@@ -25,10 +26,12 @@ db.connect(err => {
   }
 });
 
-// JWT Secret
-const JWT_SECRET = 'your_jwt_secret';
+// JWT Secret tokea kwenye .env file
 
-// User Login Route
+const JWT_SECRET = process.env.JWT_SECRET;
+
+
+// Endpoint ya user kulogin
 app.post('/login', (req, res) => {
   const { username, password } = req.body;
 
